@@ -13,22 +13,27 @@ function w = BilinearQuadElementStiffness2(E,NU,h,x1,y1,x2,y2,x3,y3,x4,y4,p)
 	%                               The size of the element 
 	%                               stiffness matrix is 8 x 8.
 	syms s t;
-	% å®šä¹‰å½¢å‡½æ•°ï¼Œå››èŠ‚ç‚¹å››è¾¹å½¢ç­‰å‚å•å…ƒ
-	N1 = (1-s)*(1-t)/4;
+	% ¶¨ÒåĞÎº¯Êı(ËÄ½ÚµãËÄ±ßĞÎµÈ²Îµ¥Ôª)
+	% define the shape function(Four node quadrilateral isoparametric element)
+	N1 = (1- s)*(1-t)/4;
 	N2 = (1+s)*(1-t)/4;
 	N3 = (1+s)*(1+t)/4;
-	N4 = (1-s)*(1+t)/4;
-	% ä»»æ„å››è¾¹å½¢çš„å±€éƒ¨åæ ‡ä¸æ•´ä½“åæ ‡å˜æ¢å¼
+	N4 = (1- s)*(1+t)/4;
+	% ¾Ö²¿×ø±êÓëÕûÌå×ø±ê±ä»»
+	% a transformation of coordinates from the subdomains' local nodes to the domain's global nodes
 	x = N1*x1 + N2*x2 + N3*x3 + N4*x4;
 	y = N1*y1 + N2*y2 + N3*y3 + N4*y4;
-	% å¯¹å±€éƒ¨åæ ‡æ±‚å¾®åˆ† 
+	% ¶Ô¾Ö²¿×ø±êÇóÎ¢·Ö 
+	% differentiates of above transformation with respect to subdomains' local coordinates.
 	xs = diff(x,s);
 	xt = diff(x,t);
 	ys = diff(y,s);
 	yt = diff(y,t);
-	% é›…å¯æ¯”è¡Œåˆ—å¼çš„å€¼
+	% ÑÅ¿É±ÈĞĞÁĞÊ½µÄÖµ
+	% Jacobian determinant
 	J = xs*yt - ys*xt;
-	% å½¢å‡½æ•°å¯¹å±€éƒ¨åæ ‡æ±‚å¾®åˆ†
+	% ĞÎº¯Êı¶Ô¾Ö²¿×ø±êÇóÎ¢·Ö
+	% differentiates of shape function with respect to subdomains' local coordinates.
 	N1s = diff(N1,s);
 	N2s = diff(N2,s);
 	N3s = diff(N3,s);
@@ -37,7 +42,8 @@ function w = BilinearQuadElementStiffness2(E,NU,h,x1,y1,x2,y2,x3,y3,x4,y4,p)
 	N2t = diff(N2,t);
 	N3t = diff(N3,t);
 	N4t = diff(N4,t);
-	% æ±‚æ²¡æœ‰é™¤ä»¥é›…å¯æ¯”è¡Œåˆ—å¼çš„BçŸ©é˜µ
+	% ÇóÃ»ÓĞ³ıÒÔÑÅ¿É±ÈĞĞÁĞÊ½µÄB¾ØÕó
+	% calculate matrix B
 	B11 = yt*N1s - ys*N1t;
 	B12 = 0;
 	B13 = yt*N2s - ys*N2t;
@@ -70,9 +76,10 @@ function w = BilinearQuadElementStiffness2(E,NU,h,x1,y1,x2,y2,x3,y3,x4,y4,p)
 	elseif p == 2
 		D = (E/(1+NU)/(1-2*NU))*[1-NU, NU, 0 ; NU, 1-NU, 0 ; 0, 0, (1-2*NU)/2];
 	end
-	% æ±‚transpose(B)*D*B/J
+	% transpose(B)*D*B/J
 	BD = transpose(B)*D*B/J;
-	% å¯¹BDç§¯åˆ†ï¼Œå¹¶ä¹˜ä»¥åšåº¦
+	% »ı·Ö£¬²¢³ËÒÔºñ¶È
+	% integral,plus the thickness;
 	r = int(int(BD, t, -1, 1), s, -1, 1);
 	z = h*r;
 	w = double(z);
