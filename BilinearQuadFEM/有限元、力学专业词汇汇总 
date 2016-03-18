@@ -1,0 +1,93 @@
+有限元、力学专业词汇汇总 
+
+拉力 tensile force          
+正应力 normal stress
+切应力 shear stress 
+静水压力 hydrostatic pressure   
+集中力 concentrated force    
+分布力 distributed force 
+线性应力应变关系linear relationship between stress andstrain   
+弹性模量 modulus of elasticity            
+横向力 lateral force transverse force
+轴向力 axial force       
+拉应力 tensile stress          
+压应力 compressive stress 
+平衡方程 equilibrium equation                 
+静力学方程equations of static 
+比例极限 proportional limit     
+应力应变曲线stress-strain curve   
+拉伸实验 tensile test‘ 
+屈服应力 yield stress       
+极限应力 ultimate stress     
+轴 shaft      
+梁 beam 
+纯剪切 pure shear      
+横截面积 cross-sectional area      
+挠度曲线 deflection curve 
+曲率半径 radius of curvature        
+曲率半径的倒数 reciprocal of radius of curvature 
+纵轴 longitudinal axis    
+悬臂梁 cantilever beam   
+简支梁 simply supported beam 
+微分方程 differential equation   
+惯性矩 moment of inertia     
+静矩 static moment 
+扭矩 torque moment                      
+弯矩 bending moment 
+弯矩对x的导数 derivative of bending moment with respect to x 
+弯矩对x的二阶导数 the second derivative of bending moment with respect to x 
+静定梁 statically determinate beam         
+静不定梁 statically indeterminate beam 
+相容方程 compatibility equation            
+补充方程 complementary equation 
+中性轴 neutral axis                       
+圆截面 circular cross section 
+两端作用扭矩 twisted by couples at two ends     
+刚体 rigid body    
+扭转角 twist angle 
+静力等效 statically equivalent         
+相互垂直平面mutually perpendicular planes 
+通过截面形心 through the centroid of the cross section  
+一端铰支 pin support at one end 
+一端固定 fixed at one end 
+弯矩图 bending moment diagram
+剪力图 shear force diagram 
+剪力突变 abrupt change in shear force、   
+旋转和平移 rotation and translation 
+虎克定律 hook’s law       
+边界条件 boundary condition      
+初始位置 initial position、 
+力矩面积法moment-area method           
+绕纵轴转动 rotate about a longitudinal axis 
+横坐标 abscissa         
+扭转刚度 torsional rigidity         
+拉伸刚度 tensile rigidity 
+剪应力的合力resultant of shear stress       
+正应力的大小magnitude of normal stress 
+脆性破坏 brittle fail     
+对称平面 symmetry plane  
+刚体的平衡 equilibrium of rigid body 
+约束力 constraint force    
+重力 gravitational force 
+实际作用力 actual force
+三维力系 three-dimentional force system 
+合力矩 resultant moment
+标量方程 scalar equation、
+矢量方程 vector equation 
+张量方程 tensor equation
+汇交力系 cocurrent system of forces 
+任意一点 an arbitrary point
+合矢量 resultant vector
+反作用力 reaction force 
+反作用力偶 reaction couple
+转动约束 restriction against rotation 
+平动约束 restriction against translation
+运动的趋势 tendency of motion 
+绕给定轴转动 rotate about a specific axis        
+沿一个方向运动 move in a direction 
+控制方程 control equation    
+共线力 collinear forces    
+平面力系 planar force system 
+一束光 a beam of light  
+未知反力 unknown reaction forces 
+参考框架 frame of reference 
