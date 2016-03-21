@@ -12,7 +12,7 @@ function w = BilinearQuadElementStiffness(E,NU,h,x1,y1,x2,y2,x3,y3,x4,y4,p)
 %                               cases of plane strain.
 %                               The size of the element 
 %                               stiffness matrix is 8 x 8.
-syms s t;
+syms s t ;
 a = (y1*(s-1)+y2*(-1-s)+y3*(1+s)+y4*(1-s))/4;
 b = (y1*(t-1)+y2*(1-t)+y3*(1+t)+y4*(-1-t))/4;
 c = (x1*(t-1)+x2*(1-t)+x3*(1+t)+x4*(-1-t))/4;

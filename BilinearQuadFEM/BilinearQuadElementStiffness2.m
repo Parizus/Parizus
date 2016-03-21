@@ -6,7 +6,7 @@ function w = BilinearQuadElementStiffness2(E,NU,h,x1,y1,x2,y2,x3,y3,x4,y4,p)
 	%                               NU, thickness h, coordinates of 
 	%                               node 1 (x1,y1), coordinates 
 	%                               of node 2 (x2,y2), coordinates of 
-	%                               node 3 (x3,y3), and coordinates of 
+	%                               node 3 (x3,y3), and coordinates of  
 	%                               node 4 (x4,y4). Use p = 1 for cases 
 	%                               of plane stress, and p = 2 for 
 	%                               cases of plane strain.

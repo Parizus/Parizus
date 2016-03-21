@@ -7,6 +7,7 @@ function y = BilinearQuadAssemble(K,k,ijmn)
 %                       This function returns the global stiffness  
 %                       matrix K after the element stiffness matrix  
 %                       k is assembled.
+% ijmn为该单元四个节点的局部节点编号i,j,m,n对应的整体节点编号
 % 将单元刚度阵里面的64个元素分别加入整体刚度阵中
 for i=1:4
 	for j=1:4
