@@ -15,6 +15,6 @@ for i=1:4
 		K(2*ijmn(i)-1,2*ijmn(j))=K(2*ijmn(i)-1,2*ijmn(j)) + k(2*i-1,2*j);
 		K(2*ijmn(i),2*ijmn(j)-1)=K(2*ijmn(i),2*ijmn(j)-1) + k(2*i,2*j-1);
 		K(2*ijmn(i),2*ijmn(j))=K(2*ijmn(i),2*ijmn(j)) + k(2*i,2*j);
-    end
+	end
 end
 y = K;
