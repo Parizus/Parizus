@@ -1,4 +1,6 @@
 function cf=BilinearQuadSolve(E,NU,h,p,rho,lx,ly,jdx,jdy)
+% 设置材料参数，杨氏模量(E)，泊松比(NU)，厚度(h)，密度(rho)
+% E=210e6;NU=0.3;h=0.025;p=1;rho=20000;
 % elnum__the totle number of element
 % jdx(jdy)__the number of nodes in horizontal(vertical) direction
 % element node
@@ -12,10 +14,12 @@ for	ni=1:jdx-1
 		en(ni+(nj-1)*(jdx-1),3)=ni+1+nj*jdx;
 	end
 end
+% 设置边界条件
 disp(1:jdx*jdy,1:2)=1;
 constraints=1:jdx:jdx*jdy;
 connum=size(constraints);
 disp(constraints,:)=0;
+% 设置自由度编号
 dof=0;
 for ni=1:jdx*jdy
 	for nj=1:2
@@ -64,12 +68,21 @@ end
 %solve eigenvalue problem
 [v,d] = eig(k,m);
 tempd=diag(d);
+tempds=size(tempd);
 % cf=tempd;
 [nd,sortindex]=sort(tempd);
 v=v(:,sortindex);
-mode_number=1:connum(2);
+global pal;
+pal=v;
+mode_number=1:tempds(1);
 frequency(mode_number)=sqrt(nd(mode_number))/(2*pi);
 cf=frequency(mode_number);
+% for i=1:jdx
+% 	for j=0:1
+% 		mapdata(:,i,j+1)=v(2*i-j:2:2*i*jdx);
+% 	end
+% end
+% colormap(gray); imagesc(-x); axis equal; axis tight; axis off;pause(1e-6);
 end
 function w = BilinearQuadEK(E,NU,h,el,eh)
 	syms s t;
