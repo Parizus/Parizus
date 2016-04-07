@@ -1,4 +1,4 @@
-function [cf,Mode,Disp]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy,ith)
+function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy)
 	% 设置参数，杨氏模量(E)，泊松比(NU)，厚度(h)，密度(rho),计算多少阶模态(ith)
 	% E=210e6;NU=0.3;h=0.025;rho=20000;
     % lx=5,ly=5,jdx=6,jdy=6;
@@ -68,8 +68,8 @@ function [cf,Mode,Disp]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy,ith)
 	% cf=tempd;
 	[nd,sortindex]=sort(tempd);
 	Mode=v(:,sortindex);
-	mode_number=1:ith;
+	mode_number=1:3;
 	frequency(mode_number)=sqrt(nd(mode_number))/(2*pi);
 	cf=frequency(mode_number);
-    DisplayMode(jdx,jdy,Disp,Mode,ith);
+%     DisplayMode(jdx,jdy,Disp,Mode,dispelnum);
 end

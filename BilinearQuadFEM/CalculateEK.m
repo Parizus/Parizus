@@ -70,5 +70,5 @@ function w = CalculateEK(E,NU,h,el,eh)
 	% 积分，并乘以厚度
 	% integral,plus the thickness;
 	r = int(int(BD, t, -1, 1), s, -1, 1);
-	w = h*r;
+	w = double(h*r);
 end
