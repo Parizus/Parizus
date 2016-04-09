@@ -1,4 +1,4 @@
-function [cf,Mode,Disp_,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy)
+function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy)
 	% 设置参数，杨氏模量(E)，泊松比(NU)，厚度(h)，密度(rho),计算多少阶模态(ith)
 	% E=210e6;NU=0.3;h=0.025;rho=20000;
     % lx=5,ly=5,jdx=6,jdy=6;
@@ -18,16 +18,12 @@ function [cf,Mode,Disp_,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx
 	[Disp,connum]=SetConstraint(jdx,jdy);
 	% 设置自由度编号
 	dof=0;
-    dof_=0;
-    Disp_=Disp;
 	for ni=1:jdx*jdy
 		for nj=1:2
 			if Disp(ni,nj)~=0
 				dof=dof+1;
 				Disp(ni,nj)=dof;
 			end
-            dof_=dof_+1;
-            Disp_(ni,nj)=dof_;
 		end
 	end
 	dispelnum=jdx*jdy-connum;
