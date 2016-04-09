@@ -1,4 +1,4 @@
-function DisplayMode(jdx,jdy,Disp,Mode,ith)
+function Mode_=DisplayMode(jdx,jdy,Disp,Mode,ith)
 	dof=0;
     Mode_=zeros(jdx*jdy*2,ith);
 	for ni=1:jdx*jdy
