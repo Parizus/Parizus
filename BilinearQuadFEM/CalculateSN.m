@@ -1,4 +1,4 @@
-function sn = CalculateSN(ek,em,en,Disp,ith,cf,Mode,Modenum,dispelnum)
+function sn = CalculateSN(ek,em,en,Disp,ith,cf,Mode,Modenum,dispelnum,sn_)
 	%system stiffness matrix
 	k(1:2*dispelnum,1:2*dispelnum)=0;
 	%system mass matrix
@@ -17,4 +17,9 @@ function sn = CalculateSN(ek,em,en,Disp,ith,cf,Mode,Modenum,dispelnum)
 				end
 			end
         end
+        if (sn_==1)
 sn=Mode(:,Modenum)'*(k-cf(Modenum)^2/3*m)*Mode(:,Modenum)/2/cf(Modenum);
+        elseif(sn_==0)
+sn=-Mode(:,Modenum)'*m*Mode(:,Modenum)/6*cf(Modenum);
+        end
+            

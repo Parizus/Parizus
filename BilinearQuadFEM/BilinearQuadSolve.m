@@ -1,4 +1,4 @@
-function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy)
+function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jdx,jdy,sn_)
 	% 设置参数，杨氏模量(E)，泊松比(NU)，厚度(h)，密度(rho),计算多少阶模态(ith)
 	% E=210e6;NU=0.3;h=0.025;rho=20000;
     % lx=5,ly=5,jdx=6,jdy=6;
@@ -43,11 +43,20 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 	% 其中所有的单元有着相同的刚度矩阵和质量矩阵
 	% in this case, all elements have the same element stifness and mass matrix
 	ek=CalculateEK(E,NU,h,el,eh);
+    ek_=CalculateEK(0.01*E,NU,h,el,eh);
 	em=CalculateEM(h,rho,el,eh);
+	em_=CalculateEM(h,0.01*rho,el,eh);
 	% 建立整体刚度矩阵和质量矩阵
 	% built system stifness and mass matrix.
 	index(1:8)=0; % vector sontaining system dofs of nodes in each element.
 	for loopi=1:(jdx-1)*(jdy-1)
+        if (sn_(loopi)==0)
+            ektemp=ek_;
+            emtemp=em_;
+        elseif(sn_(loopi)==1)
+            ektemp=ek;
+            emtemp=em;
+        end
 		for zi=1:4
 			index((zi-1)*2+1)=Disp(en(loopi,zi),1);
 			index((zi-1)*2+2)=Disp(en(loopi,zi),2);
@@ -55,8 +64,8 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 		for i=1:8
 			for j=1:8
 				if(index(i)*index(j)~=0)
-					k(index(i),index(j))=k(index(i),index(j))+ek(i,j);
-					m(index(i),index(j))=m(index(i),index(j))+em(i,j);
+					k(index(i),index(j))=k(index(i),index(j))+ektemp(i,j);
+					m(index(i),index(j))=m(index(i),index(j))+emtemp(i,j);
 				end
 			end
 		end
