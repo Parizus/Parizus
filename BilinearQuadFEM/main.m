@@ -1,13 +1,14 @@
 % 设置参数，杨氏模量(E)，泊松比(NU)，厚度(h)，密度(rho)
 E=210e6;NU=0.3;h=0.025;rho=1;
 % 设置参数，横向长度(lx)，纵向长度(ly)，横向节点数(jdx)，纵向节点数(jdy)
-lx=8;ly=1;jdx=81;jdy=11;
+lx=8;ly=1;jdx=161;jdy=21;
 % 设置体积进化率(ER)，体积最大添加率(AR)，目标优化体积(Vf)
-ER=0.1;AR=0.01;Vf=0.5;
+ER=0.05;ARm=0.03;Vf=0.2;
 % 计算单元总数
 elnum=(jdx-1)*(jdy-1);
 % 计算目标减少体积
 Vdel=round(ER*elnum);
+Vaddm=round(ARm*elnum);
 Vfdel=round(Vf*elnum);
 sn_(1,1:elnum)=1;
 sn=zeros(1,elnum);
@@ -27,11 +28,26 @@ while(Vdel<=Vfdel)
     % 删除低敏度单元
     [nd,sortindex]=sort(sn);
     sn_(sortindex(1:Vdel))=0;
-    sn_(sortindex(Vdel+1:elnum))=1;
+    % 添加高敏度单元
+    countadd=elnum-Vdel-sum(sum(sn_(sortindex(Vdel+1:elnum))),2);
+    if (countadd<=Vaddm)
+        sn_(sortindex(Vdel+1:elnum))=1;
+    else
+        count=0;i=elnum;
+        while (count<=Vaddm)
+            if (sn_(sortindex(i))==0)
+                sn_(sortindex(i))=1;
+                count=count+1;
+            end
+            i=i-1;
+        end
+        countadd=Vaddm;
+    end
     mapdata=reshape(sn_,[jdx-1,jdy-1])';
     figure(2);
     % 绘制黑白图像
     colormap(gray); imagesc(-mapdata); axis equal; axis tight; axis off;pause(1e-6);
     elnum=sum(sum(sn_),2);
+    save(['example',num2str(Vdel)]);
     Vdel=Vdel+round(ER*elnum);
 end

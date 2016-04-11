@@ -43,9 +43,9 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 	% 其中所有的单元有着相同的刚度矩阵和质量矩阵
 	% in this case, all elements have the same element stifness and mass matrix
 	ek=CalculateEK(E,NU,h,el,eh);
-    ek_=CalculateEK(0.01*E,NU,h,el,eh);
+    ek_=CalculateEK((10^-6)*E,NU,h,el,eh);
 	em=CalculateEM(h,rho,el,eh);
-	em_=CalculateEM(h,0.01*rho,el,eh);
+	em_=CalculateEM(h,(10^-6)*rho,el,eh);
 	% 建立整体刚度矩阵和质量矩阵
 	% built system stifness and mass matrix.
 	index(1:8)=0; % vector sontaining system dofs of nodes in each element.
