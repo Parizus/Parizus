@@ -28,9 +28,9 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 	end
 	dispelnum=jdx*jdy-connum;
 	%system stiffness matrix
-	k(1:2*dispelnum,1:2*dispelnum)=0;
+	k=sparse(2*dispelnum,2*dispelnum);
 	%system mass matrix
-	m(1:2*dispelnum,1:2*dispelnum)=0;
+	m=sparse(2*dispelnum,2*dispelnum);
 	% 计算单元尺寸，单元长度(el)，单元高度(eh)
 	el=lx/(jdx-1);
 	eh=ly/(jdy-1);
@@ -72,7 +72,7 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 	end
 
 	%solve eigenvalue problem
-	[v,d] = eig(k,m);
+	[v,d] = eigs(k,m,3,'sm');
 	tempd=diag(d);
 	% cf=tempd;
 	[nd,sortindex]=sort(tempd);

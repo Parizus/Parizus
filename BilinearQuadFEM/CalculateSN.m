@@ -1,8 +1,8 @@
 function sn = CalculateSN(ek,em,en,Disp,ith,cf,Mode,Modenum,dispelnum,sn_)
 	%system stiffness matrix
-	k(1:2*dispelnum,1:2*dispelnum)=0;
+	k=sparse(2*dispelnum,2*dispelnum);
 	%system mass matrix
-	m(1:2*dispelnum,1:2*dispelnum)=0;
+	m=sparse(2*dispelnum,2*dispelnum);
 	index(1:8)=0; % vector sontaining system dofs of nodes in each element.
 	loopi=ith;
 		for zi=1:4
