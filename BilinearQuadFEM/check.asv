@@ -20,10 +20,9 @@ function sn=check(en,sn,rmin,lx,ly,jdx,jdy,nelx,nely,elnum)
         for j=1:nely
             for ii=max(1,(i-rminl)):min(jdx,(i+rminl+1))
                 for jj=max(1,(j-rminh)):min(jdy,(j+rminh+1))
-                    dic=sqrt(((abs(i-ii+0.5))*el)^2+((abs(j-jj+0.5))*eh)^2);
-                    if dic<=rmin
-                        snt(i,j)=snt(i,j)+dof_(jj,ii)*(rmin-dic);
-                        count(i,j)=count(i,j)+(rmin-dic);
+                    if sqrt(((abs(i-ii+0.5))*el)^2+((abs(j-jj+0.5))*eh)^2)<=rmin
+                        snt(i,j)=snt(i,j)+dof_(jj,ii)*();
+                        count(i,j)=count(i,j)+1;
                     end
                 end 
             end

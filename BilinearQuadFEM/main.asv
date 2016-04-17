@@ -63,8 +63,9 @@ while(elnum_>=(nelx*nely-Vfdel))
     colormap(gray); imagesc(-mapdata); axis equal; axis tight; axis off;
     elnum_=sum(sum(sn_),2);
     % Êä³ö¿ØÖÆ
-    c=clock;
-    fprintf('%d %d %d %d %d %d %6.2f\n',c(1:5),cyclenum,cf(1));
+    c=clock
+    fprintf('%d %d %d',clock,cyclenum,cf(1));
+    fprintf('\n');
     save(['example',num2str(cyclenum)]);
     saveas(2,num2str(cyclenum),'jpg');
     cyclenum=cyclenum+1;
