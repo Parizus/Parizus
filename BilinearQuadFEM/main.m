@@ -9,8 +9,7 @@ ER=0.02;ARm=0.02;Vf=0.5;rmin=0.075;
 nelx=jdx-1;nely=jdy-1;
 elnum=nelx*nely;
 % 计算目标减少体积
-Vdel=0;
-Vaddm=round(ARm*elnum);
+Vaddm=round(ARm*elnum/4)*4;
 Vfdel=round(Vf*elnum/4)*4;
 sn_(1,1:elnum)=1;
 sn=zeros(1,elnum);
@@ -18,7 +17,8 @@ cyclenum=1;
 elnum_=elnum;
 TimeData(cyclenum,:)=clock;
 while(elnum_>=(nelx*nely-Vfdel))
-    Vdel=Vdel+round(ER*elnum_/4)*4;
+% for i=1:50
+    Vtar=elnum_-round(ER*elnum_/4)*4;
     % 进行有限元计算
     % 输出各阶频率(cf)，模态矩阵(Mode)
     % 节点自由度-整体自由度编号矩阵(Disp)，单元结点编号-整体节点编号矩阵(en)
@@ -32,30 +32,58 @@ while(elnum_>=(nelx*nely-Vfdel))
         sn(i)=CalculateSN(ek,em,en,Disp,i,cf,Mode,1,dispelnum,sn_(i));
     end
     a001=sn;
-    a000=sn;
-    sn=check(en,sn,rmin,lx,ly,jdx,jdy,nelx,nely,elnum);    
+%     a000=sn;
+    sn=check(en,sn,rmin,lx,ly,jdx,jdy,nelx,nely,elnum);
     if cyclenum>1
-        snold=(sn+snold)/2;
+        sn=(sn+snold)/2;
     else
         snold=sn;
     end
+    snold=sn;
     % 删除低敏度单元
     [nd,sortindex]=sort(sn);
-    sn_(sortindex(1:Vdel))=0;
-    % 添加高敏度单元
-    countadd=elnum_-Vdel-sum(sum(sn_(sortindex(Vdel+1:elnum_))),2);
-    if (countadd<=Vaddm)
-        sn_(sortindex(Vdel+1:elnum_))=1;
-    else
-        count=0;i=elnum_;
-        while (count<=Vaddm)
-            if (sn_(sortindex(i))==0)
-                sn_(sortindex(i))=1;
-                count=count+1;
+    adel=sn(sortindex(elnum-Vtar));
+    aadd=adel;
+    countadd=0;
+    for i=1:elnum
+        if sn_(i)==0
+            if sn(i)>adel;
+                countadd=countadd+1;
             end
-            i=i-1;
         end
-        countadd=Vaddm;
+    end
+    if countadd>Vaddm;
+        for i=elnum:1
+            count=0;
+            j=sortindex(i);
+            if sn_(j)==0
+                count=count+1;
+                if count==Vaddm+1
+                    aadd=sn(count);
+                end
+            end
+        end
+        for i=1:elnum
+            count=0;
+            j=sortindex(i);
+            if sn_(j)==1
+                count=count+1;
+                if count==elnum_-Vtar+Vaddm
+                    adel=sn(count);
+                end
+            end
+        end
+    end
+    for i=1:elnum
+        if sn_(i)==1
+            if sn(i)<=adel;
+                sn_(i)=0;
+            end
+        elseif sn_(i)==0
+            if sn(i)>aadd;
+                sn_(i)=1;
+            end
+        end
     end
     mapdata=reshape(sn_,[nelx,nely])';
     figure(2);

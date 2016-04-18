@@ -78,7 +78,7 @@ function [cf,Mode,Disp,en,ek,em,dispelnum]=BilinearQuadSolve(E,NU,h,rho,lx,ly,jd
 	[nd,sortindex]=sort(tempd);
 	Mode=v(:,sortindex);
 	mode_number=1:3;
-	frequency(mode_number)=sqrt(nd(mode_number))/(2*pi);
+	frequency(mode_number)=sqrt(nd(mode_number));
 	cf=frequency(mode_number);
 %     DisplayMode(jdx,jdy,Disp,Mode,dispelnum);
 end
