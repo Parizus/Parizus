@@ -37,8 +37,8 @@ while(elnum_>=(nelx*nely-Vfdel))
     else
         snold=sn;
     end
-    snold=sn;
-    % 删除低敏度单元
+    snold=sn;  
+%     删除低敏度单元
     [nd,sortindex]=sort(sn);
     adel=sn(sortindex(elnum-Vtar));
     aadd=adel;
@@ -51,23 +51,27 @@ while(elnum_>=(nelx*nely-Vfdel))
         end
     end
     if countadd>Vaddm;
-        for i=elnum:1
-            count=0;
+        count=0;   
+        for i=elnum:-1:1
             j=sortindex(i);
             if sn_(j)==0
                 count=count+1;
+                a0000=count;
                 if count==Vaddm+1
                     aadd=sn(j);
+                    break;
                 end
             end
         end
-        for i=1:elnum
-            count=0;
+        count=0;
+        for i=1:1:elnum
             j=sortindex(i);
             if sn_(j)==1
                 count=count+1;
+                a0001=count;
                 if count==elnum_-Vtar+Vaddm
                     adel=sn(j);
+                    break;
                 end
             end
         end
@@ -93,7 +97,7 @@ while(elnum_>=(nelx*nely-Vfdel))
     fprintf('%d %d %d %d %d %d %6.2f\n',c(1:5),cyclenum,cf(1));
     save(['example',num2str(cyclenum)]);
     saveas(2,num2str(cyclenum),'jpg');
-    cyclenum=cyclenum+1;
     TimeData(cyclenum,:)=clock;
+    cyclenum=cyclenum+1;
 %     pause;
 end
