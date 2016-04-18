@@ -31,8 +31,6 @@ while(elnum_>=(nelx*nely-Vfdel))
     for i=1:elnum
         sn(i)=CalculateSN(ek,em,en,Disp,i,cf,Mode,1,dispelnum,sn_(i));
     end
-    a001=sn;
-%     a000=sn;
     sn=check(en,sn,rmin,lx,ly,jdx,jdy,nelx,nely,elnum);
     if cyclenum>1
         sn=(sn+snold)/2;
@@ -59,7 +57,7 @@ while(elnum_>=(nelx*nely-Vfdel))
             if sn_(j)==0
                 count=count+1;
                 if count==Vaddm+1
-                    aadd=sn(count);
+                    aadd=sn(j);
                 end
             end
         end
@@ -69,7 +67,7 @@ while(elnum_>=(nelx*nely-Vfdel))
             if sn_(j)==1
                 count=count+1;
                 if count==elnum_-Vtar+Vaddm
-                    adel=sn(count);
+                    adel=sn(j);
                 end
             end
         end
