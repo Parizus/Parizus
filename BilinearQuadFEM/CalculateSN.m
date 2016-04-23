@@ -17,7 +17,8 @@ for i=1:8
         end
     end
 end
-if 2*abs(cf(1)-cf(2))/(cf(1)+cf(2))<=0.01    
+% if 2*abs(cf(1)-cf(2))/(cf(1)+cf(2))<=0.01
+if abs(cf(1)-cf(2))<=5
     if (sn_==1)
         sn=Mode(:,Modenum)'*(k-cf(Modenum)^2/3*m)*Mode(:,Modenum)/2/cf(1);
         sn2=Mode(:,2)'*(k-cf(2)^2/3*m)*Mode(:,2)/2/cf(2);
